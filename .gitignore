@@ -1,0 +1,43 @@
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go build folder
+/bin/
+/build/
+/dist/
+
+# Go workspace
+go.work
+go.work.sum
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# Environment variables / secrets
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editors
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+temp/
