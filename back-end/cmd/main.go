@@ -1,6 +1,6 @@
 package main
 
-import "server"
+import "forum/server"
 
 func main(){
 	server.Start()
