@@ -4,16 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
+    <link rel="stylesheet" href="../static/css/HomePage.css">
 </head>
 <body>
     
     <section class="content">
 
-        <section class="posts">
-                <P>ICI POSTs</P>
-        </section>
 
-        
+        <div class="posts-container">
+            <form action="" method="GET" class="filter-form">
+
+            <details class="dropdown-filter">
+                <summary>Filtrer par catégories</summary>
+
+                <div class="dropdown-content">
+                    {{range .Categories}}
+                        <label>
+                            <input type="checkbox" name="category_id" value="{{.ID}}">
+                            {{.Name}}
+                        </label>
+                    {{end}}
+                </div>
+            </details>
+
+            <button type="submit">Appliquer</button>
+
+        </form>
+
+            <p>Dernier post :</p>
+            {{range .Posts}}
+                <div class="post-card">
+                    <h2 class="user-link"><a href="/profil/user?id={{.UserID}}">{{.Avatar}} {{.Pseudo}}</a></h2>
+                    <h2>{{.Title}}</h2>
+                    <p>{{.Content}}</p>
+                    <small>Posté le {{.CreatedAt}}</small>
+                </div>
+            {{else}}
+                <p>Aucun post pour le moment.</p>
+            {{end}}
+
+            <a href="/PostCreation" id="new-post-btn">
+                Créer un nouveau post
+            </a>
+        </div>
+
     </section>
 
 

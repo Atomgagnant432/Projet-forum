@@ -1,0 +1,90 @@
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.post-card {
+    width: 50%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 30px;
+}
+
+.dropdown-filter {
+    position: relative;
+    width: 250px;
+}
+
+.dropdown-filter summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.dropdown-filter summary::-webkit-details-marker {
+    display: none;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dropdown-content label {
+    cursor: pointer;
+}
+
+.filter-form button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.user-link a{
+    text-decoration: none;
+    color: black;
+}
+
+.user-link a:hover{
+    color: blue;
+}
+
+#new-post-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #222;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 200px;
+}
+
+#new-post-btn:hover {
+    background-color: #444;
+    color: red;
+}
