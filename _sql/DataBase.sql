@@ -94,3 +94,16 @@ CREATE TABLE IF NOT EXISTS comments_dislike (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE
 );
+
+
+CREATE TABLE IF NOT EXISTS user_avatars (
+    user_id INTEGER PRIMARY KEY,
+    image_data BLOB NOT NULL,
+    mime_type TEXT NOT NULL,
+    size INTEGER NOT NULL,
+    uploaded_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CHECK (size <= 3145728),
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
