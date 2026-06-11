@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publication</title>
+    <link rel="stylesheet" href="../static/css/creationPage.css">
+</head>
+<body>
+
+    <section class="post-form">
+        <form action="/post/create" method="POST" enctype="multipart/form-data">
+            <h1>Nouveau post</h1>
+
+            <div class="form-group">
+                <label for="title">Titre :</label>
+                <input type="text" name="title" id="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Contenu :</label>
+                <textarea name="content" id="content" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Catégories :</label>
+
+                <details class="category-dropdown">
+                    <summary>Ajoutez une ou plusieurs catégories</summary>
+
+                    <div class="category-options">
+                        <div class="categories-list">
+                            {{range .Categories}}
+                                <label>
+                                    <input type="checkbox" name="categories" value="{{.ID}}">
+                                    {{.Name}}
+                                </label>
+                            {{end}}
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image :</label>
+                <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/gif">
+            </div>
+
+            <button type="submit">Publier</button>
+        </form>
+    </section>
+
+</body>
+</html>
