@@ -14,39 +14,43 @@
 
             <div class="form-group">
                 <label for="title">Titre :</label>
-                <input type="text" name="title" id="title" required>
+                <input type="text" name="title" id="title" placeholder="Quoi de neuf ?" required>
             </div>
 
             <div class="form-group">
                 <label for="content">Contenu :</label>
-                <textarea name="content" id="content" required></textarea>
-            </div>
 
-            <div class="form-group">
-                <label>Catégories :</label>
+                <div class="content-box">
+                    <textarea name="content" id="content" placeholder="..." required></textarea>
 
-                <details class="category-dropdown">
-                    <summary>Ajoutez une ou plusieurs catégories</summary>
+                    <div class="content-toolbar">
+                        <label for="image" class="toolbar-btn">
+                            <img src="../static/img/add-img.png" alt="Ajouter une image">
+                        </label>
 
-                    <div class="category-options">
-                        <div class="categories-list">
-                            {{range .Categories}}
-                                <label>
-                                    <input type="checkbox" name="categories" value="{{.ID}}">
-                                    {{.Name}}
-                                </label>
-                            {{end}}
-                        </div>
+                        <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/gif">
+
+                        <details class="category-toolbar-dropdown">
+                            <summary class="toolbar-btn">
+                                <img src="../static/img/add-categories.png" alt="Ajouter des catégories">
+                            </summary>
+
+                            <div class="category-toolbar-options">
+                                {{range .Categories}}
+                                    <label>
+                                        <input type="checkbox" name="categories" value="{{.ID}}">
+                                        {{.Name}}
+                                    </label>
+                                {{end}}
+                            </div>
+                            
+                        </details>
+
+                        <button type="submit" class="post-btn">Poster</button>
                     </div>
-                </details>
-            </div>
 
-            <div class="form-group">
-                <label for="image">Image :</label>
-                <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/gif">
+                </div>
             </div>
-
-            <button type="submit">Publier</button>
         </form>
     </section>
 

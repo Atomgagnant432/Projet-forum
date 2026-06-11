@@ -12,26 +12,29 @@
 
 
         <div class="posts-container">
-            <form action="" method="GET" class="filter-form">
+            <div class="posts-header">
 
-            <details class="dropdown-filter">
-                <summary>Filtrer par catégories</summary>
+                <form action="" method="GET" class="filter-form">
+                    <details class="dropdown-filter">
+                        <summary>Filtrer par catégories</summary>
 
-                <div class="dropdown-content">
-                    {{range .Categories}}
-                        <label>
-                            <input type="checkbox" name="category_id" value="{{.ID}}">
-                            {{.Name}}
-                        </label>
-                    {{end}}
-                </div>
-            </details>
+                        <div class="dropdown-content">
+                            {{range .Categories}}
+                                <label>
+                                    <input type="checkbox" name="category_id" value="{{.ID}}">
+                                    {{.Name}}
+                                </label>
+                            {{end}}
+                        </div>
+                    </details>
 
-            <button type="submit">Appliquer</button>
+                    <button type="submit">Appliquer</button>
+                </form>
 
-        </form>
+                <p class="last-post-title">Dernier post :</p>
 
-            <p>Dernier post :</p>
+            </div>
+
             {{range .Posts}}
                 <div class="post-card">
                     <h2 class="user-link"><a href="/profil/user?id={{.UserID}}">{{.Avatar}} {{.Pseudo}}</a></h2>
