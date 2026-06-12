@@ -1,0 +1,208 @@
+.post-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.post-form form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group label {
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+#title {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+
+.content-box {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: white;
+    overflow: visible; 
+    position: relative;
+}
+
+.content-box textarea {
+    width: 100%;
+    min-height: 160px;
+    padding: 12px;
+    border: none;
+    outline: none;
+    resize: vertical;
+    box-sizing: border-box;
+    font-size: 16px;
+    border-radius: 12px 12px 0 0;
+}
+.content-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 12px;
+    border-top: 1px solid #ddd;
+    position: relative;
+    overflow: visible;
+}
+
+/* Cache le vrai bouton fichier */
+#image {
+    display: none;
+}
+
+/* Même style pour les deux boutons */
+.toolbar-btn {
+    width: 36px;
+    height: 36px;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: normal !important;
+}
+
+/* Images des deux boutons */
+.toolbar-btn img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* Details du bouton catégories */
+.category-toolbar-dropdown {
+    width: 36px;
+    height: 36px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* Supprime la flèche native du summary */
+.category-toolbar-dropdown summary {
+    list-style: none;
+}
+
+.category-toolbar-dropdown summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Liste catégories */
+.category-toolbar-options {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 220px;
+    padding: 12px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+}
+
+.category-toolbar-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 !important;
+    font-weight: normal !important;
+    cursor: pointer;
+}
+
+.category-toolbar-options input {
+    width: auto;
+}
+
+.post-btn {
+    margin-left: auto;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 999px;
+    background-color: #222;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.post-btn:hover {
+    background-color: #444;
+}
+
+
+
+#image-preview-container {
+    position: relative;
+    width: calc(100% - 24px);
+    margin: 12px;
+}
+
+#image-preview-container[hidden] {
+    display: none;
+}
+
+#image-preview {
+    display: block;
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+}
+
+#remove-image-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+
+    font-size: 22px;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+#remove-image-btn:hover {
+    background-color: black;
+}
