@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
     <link rel="stylesheet" href="../static/css/common.css">
-    <link rel="stylesheet" href="../static/css/homePage.css">
+    <link rel="stylesheet" href="../static/css/homePage.css"> 
 </head>
 <body>
     <div class="sidebar">
@@ -75,16 +75,101 @@
 
             </div>
 
-            {{range .Posts}}
-                <div class="post-card">
-                    <h2 class="user-link"><a href="/profil/user?id={{.UserID}}">{{.Avatar}} {{.Pseudo}}</a></h2>
-                    <h2>{{.Title}}</h2>
-                    <p>{{.Content}}</p>
-                    <small>Posté le {{.CreatedAt}}</small>
+           {{range .Posts}}
+            <article class="post-card">
+
+                <h2 class="user-link">
+                    <a href="/profil/user?id={{.UserID}}">
+                        {{.Avatar}} {{.Pseudo}}
+                    </a>
+                </h2>
+
+                <h2>{{.Title}}</h2>
+
+                <p>{{.Content}}</p>
+
+                {{if .ImageLink}}
+                    <img
+                        src="{{.ImageLink}}"
+                        alt="Image de la publication"
+                        class="post-image"
+                    >
+                {{end}}
+
+                <small>Posté le {{.CreatedAt}}</small>
+
+                <div class="post-actions">
+
+                    <details class="comments-dropdown">
+                        <summary class="post-action-btn">
+                            <img
+                                src="../static/icons/commentaryIcon.png"
+                                alt="Commentaires"
+                                class="post-action-icon"
+                            >
+                            <span>{{.CommentCount}}</span>
+                        </summary>
+
+                        <div class="comments-list">
+                            {{range .Comments}}
+                                <div class="comment">
+                                    <a href="/profil/user?id={{.UserID}}" class="comment-user">
+                                        {{.Avatar}} {{.Pseudo}}
+                                    </a>
+
+                                    <p>{{.Content}}</p>
+                                    <small>Posté le {{.CreatedAt}}</small>
+                                </div>
+                            {{else}}
+                                <p class="no-comments">Aucun commentaire.</p>
+                            {{end}}
+                        </div>
+                    </details>
+
+
+                    <form action="/post/like" method="POST">
+                        <button
+                            type="submit"
+                            name="post_id"
+                            value="{{.ID}}"
+                            class="post-action-btn"
+                            aria-label="Aimer le post"
+                        >
+                            <img
+                                src="../static/icons/likeIcon.png"
+                                alt=""
+                                class="post-action-icon"
+                            >
+
+                            <span>{{.LikeCount}}</span>
+                        </button>
+                    </form>
+
+
+                    <form action="/post/dislike" method="POST">
+                        <button
+                            type="submit"
+                            name="post_id"
+                            value="{{.ID}}"
+                            class="post-action-btn"
+                            aria-label="Ne pas aimer le post"
+                        >
+                            <img
+                                src="../static/icons/dislikeIcon.png"
+                                alt=""
+                                class="post-action-icon"
+                            >
+
+                            <span>{{.DislikeCount}}</span>
+                        </button>
+                    </form>
+
                 </div>
-            {{else}}
-                <p>Aucun post pour le moment.</p>
-            {{end}}
+
+            </article>
+        {{else}}
+            <p>Aucun post pour le moment.</p>
+        {{end}}
 
             <a href="../template/creationPage.html" id="new-post-btn">
                 Créer un nouveau post
