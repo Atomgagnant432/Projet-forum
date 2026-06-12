@@ -8,7 +8,7 @@ import (
 
 func Start() {
 	//future render
-	v, err := render.New("web/templates/*.html")
+	v, err := render.New("../front-end/template/*.html")
 	if err != nil {
 		log.Fatal(err)
 	}
