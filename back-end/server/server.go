@@ -8,6 +8,10 @@ import (
 
 func Start() {
 	//future render
+	v, err := render.New("../front-end/template/*.html")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	//Starting Server
 
@@ -18,7 +22,7 @@ func Start() {
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	//routes
-	mux.HandleFunc("/", handlers.Home(v))
+	mux.HandleFunc("/", handlers.index(v))
 
 	//server started
 	fmt.Println("Server running at http://localhost:8080")
