@@ -4,9 +4,18 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"forum/back-end/database"
+	"forum/back-end/internal/handlers"
 )
 
 func Start() {
+	db, err := database.OpenDatabase()
+	if err != nil {
+		log.Fatal("Erreur ouverture BDD :", err)
+	}
+	defer db.Close()
+
 	//future render
 	v, err := render.New("../front-end/template/*.html")
 	if err != nil {
@@ -22,7 +31,12 @@ func Start() {
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	//routes
-	mux.HandleFunc("/", handlers.index(v))
+	// mux.HandleFunc("/", handlers.index(v))
+	mux.HandleFunc("/register", handlers.HandlerRegister(db))
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/register", http.StatusSeeOther)
+	})
 
 	//server started
 	fmt.Println("Server running at http://localhost:8080")
