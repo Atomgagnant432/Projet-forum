@@ -162,3 +162,47 @@
 .post-btn:hover {
     background-color: #444;
 }
+
+
+
+#image-preview-container {
+    position: relative;
+    width: calc(100% - 24px);
+    margin: 12px;
+}
+
+#image-preview-container[hidden] {
+    display: none;
+}
+
+#image-preview {
+    display: block;
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+}
+
+#remove-image-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+
+    font-size: 22px;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+#remove-image-btn:hover {
+    background-color: black;
+}
