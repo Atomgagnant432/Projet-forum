@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de profil</title>
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/ProfilePage.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-search" id="sidebar-search">
+            <input type="text" placeholder="Rechercher...">
+        </div>
+        <ul>
+            <li>
+                <a href="HomePage.html">
+                    <img src="../static/icons/HomeIcon.png" class="icon">
+                    <span class="text">Accueil</span>
+                </a>
+            </li>
+            <li>
+                <a href="ProfilPage.html">
+                    <img src="../static/icons/ProfilIcon.png" class="icon">
+                    <span class="text">Profil</span>
+                </a>
+            </li>
+            <li>
+                <a href="SettingsPage.html">
+                    <img src="../static/icons/SettingsIcon.png" class="icon">
+                    <span class="text">Paramètres</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <header class="header" id="header">
+        <div class="header-logo">
+            <img src="../static/icons/logo.png" alt="Logo">
+        </div>
+        <div class="header-search" id="header-search">
+            <span class="search-icon"></span>
+            <input type="text" placeholder="Rechercher...">
+        </div>
+        <div class="header-title">IL FAUT BLOQUER</div>
+    </header>
+
+    <section class="content">
+
+        <div class="profile-card">
+            <div class="profile-banner">
+                <div class="profile-avatar-wrap">
+                    <img src="../static/icons/ProfilIcon.png" class="profile-avatar" alt="Photo de profil" id="avatarImg">
+                </div>
+            </div>
+
+            <div class="profile-body">
+                <h2 class="profile-username" id="displayUsername">username</h2>
+                <p class="profile-description" id="displayDescription">description</p>
+
+                <div class="profile-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Email</span>
+                        <span class="meta-value">user.name@exemple.fr</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Membre depuis</span>
+                        <span class="meta-value">la date lol</span>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn btn-primary" onclick="document.getElementById('editModal').style.display='flex'">
+                        Modifier le profil
+                    </button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('createPostModal').style.display='flex'">
+                        Créer un post
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="modal-overlay" id="editModal" style="display:none;">
+        <div class="modal">
+            <h3 class="modal-title">Modifier le profil</h3>
+
+            <div class="form-group">
+                <label for="inputAvatar">Photo de profil</label>
+                <input type="file" id="inputAvatar" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="inputUsername">Nom d'utilisateur</label>
+                <input type="text" id="inputUsername" value="username">
+            </div>
+
+            <div class="form-group">
+                <label for="inputDescription">Description</label>
+                <textarea id="inputDescription">blablabla</textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="document.getElementById('editModal').style.display='none'">Annuler</button>
+                <button class="btn btn-primary" onclick="saveProfile()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="createPostModal" style="display:none;">
+        <div class="modal">
+            <h3 class="modal-title">Nouveau post</h3>
+
+            <div class="form-group">
+                <label for="postTitle">Titre</label>
+                <input type="text" id="postTitle" placeholder="Titre du post">
+            </div>
+
+            <div class="form-group">
+                <label for="postContent">Contenu</label>
+                <textarea id="postContent" placeholder="Description du post"></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="document.getElementById('createPostModal').style.display='none'">Annuler</button>
+                <button class="btn btn-primary">Poster</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function saveProfile() {
+            var newUsername = document.getElementById('inputUsername').value.trim();
+            var newDesc = document.getElementById('inputDescription').value.trim();
+            var fileInput = document.getElementById('inputAvatar');
+
+            if (newUsername) {
+                document.getElementById('displayUsername').textContent = newUsername;
+            }
+            if (newDesc) {
+                document.getElementById('displayDescription').textContent = newDesc;
+            }
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarImg').src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) this.style.display = 'none';
+        });
+        document.getElementById('createPostModal').addEventListener('click', function(e) {
+            if (e.target === this) this.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
