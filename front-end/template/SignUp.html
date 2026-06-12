@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="../static/css/SignUp.css">
+</head>
+<body>
+
+    <header>
+        <a href="HomePage.html">
+            <img src="../static/icons/logo.png" alt="Logo">
+        </a>
+    </header>
+
+    <div class="container">
+        <h1>Créer un compte</h1>
+
+        <label for="pseudo">Pseudo</label>
+        <input type="text" id="pseudo" placeholder="tonpseudo">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="exemple@mail.com">
+
+        <label for="pwd">Mot de passe</label>
+        <input type="password" id="pwd" placeholder="••••••••">
+
+        <label for="pwd-confirm">Confirmer le mot de passe</label>
+        <input type="password" id="pwd-confirm" placeholder="••••••••">
+
+        <p id="error-msg"></p>
+
+        <button class="btn" onclick="valider()">S'inscrire</button>
+
+        <p class="link">Déjà un compte ? <a href="signin.html">Se connecter</a></p>
+    </div>
+
+    <script src="../static/components/signup.js"></script>
+</body>
+</html>
