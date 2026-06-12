@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Publication</title>
+
+    <link rel="stylesheet" href="../static/css/creationPage.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-search" id="sidebar-search">
+           <input type="text" placeholder="Rechercher...">
+        </div>
+        <ul>
+        <li>
+            <a href="HomePage.html">
+                <img src="../static/icons/HomeIcon.png" class="icon" alt="Accueil">
+                <span class="text">Accueil</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="ProfilPage.html">
+                <img src="../static/icons/ProfilIcon.png" class="icon" alt="Profil">
+                <span class="text">Profil</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="SettingsPage.html">
+                <img src="../static/icons/SettingsIcon.png" class="icon" alt="Settings">
+                <span class="text">Paramètres</span>
+            </a>
+        </li>
+    </ul>
+    </div>
+
+    <header class="header" id="header">
+        <div class="header-logo">
+            <img src="../static/icons/logo.png" alt="Logo">
+        </div>
+
+        <div class="header-search" id="header-search">
+            <span class="search-icon"></span>
+            <input type="text" placeholder="Rechercher...">
+        </div>
+        <div class="header-title">IL FAUT BLOQUER</div>
+    </header>
+    
+    <section class="post-form">
+        <form action="/post/create" method="POST" enctype="multipart/form-data">
+
+            <h1>Nouveau post</h1>
+
+            <div class="form-group">
+                <label for="title">Titre :</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    id="title"
+                    placeholder="Quoi de neuf ?"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="content">Contenu :</label>
+
+                <div class="content-box">
+
+                    <textarea
+                        name="content"
+                        id="content"
+                        placeholder="..."
+                        required
+                    ></textarea>
+
+                    
+                    <div id="image-preview-container" hidden>
+
+                        <img
+                            id="image-preview"
+                            alt="Prévisualisation de l'image"
+                        >
+
+                        <button
+                            type="button"
+                            id="remove-image-btn"
+                            aria-label="Supprimer l'image"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                    <div class="content-toolbar">
+
+    
+                        <label for="image" class="toolbar-btn">
+                            <img
+                                src="../static/img/add-img.png"
+                                alt="Ajouter une image"
+                            >
+                        </label>
+
+                        <input
+                            type="file"
+                            name="image"
+                            id="image"
+                            accept="image/png, image/jpeg, image/gif"
+                        >
+
+                    
+                        <details class="category-toolbar-dropdown">
+
+                            <summary class="toolbar-btn">
+                                <img
+                                    src="../static/img/add-categories.png"
+                                    alt="Ajouter des catégories"
+                                >
+                            </summary>
+
+                            <div class="category-toolbar-options">
+
+                                {{range .Categories}}
+
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            name="categories"
+                                            value="{{.ID}}"
+                                        >
+
+                                        {{.Name}}
+                                    </label>
+
+                                {{end}}
+
+                            </div>
+
+                        </details>
+
+                        <button type="submit" class="post-btn">
+                            Poster
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </section>
+
+    <script src="../static/js/creationPage.js"></script>
+
+</body>
+</html>
