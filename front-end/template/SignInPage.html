@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="../static/css/SignIn.css">
+</head>
+<body>
+
+    <header>
+        <a href="HomePage.html">
+            <img src="../static/icons/logo.png" alt="Logo">
+        </a>
+    </header>
+
+    <div class="container">
+        <h1>Connexion</h1>
+
+        <label for="pseudo">Pseudo/Email</label>
+        <input type="text" id="pseudo/email" placeholder="ton pseudo / exemple@mail.com">
+
+        <label for="pwd">Mot de passe</label>
+        <input type="password" id="pwd" placeholder="••••••••">
+
+        <p id="error-msg"></p>
+
+        <button class="btn" onclick="valider()">Se connecter</button>
+
+        <p class="link">Pas de compte ? <a href="SignUp.html">S'inscrire</a></p>
+    </div>
+
+    <script src="../static/components/signup.js"></script>
+</body>
+</html>
