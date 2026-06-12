@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"groupie_tracker/internal/render"
+	"forum/back-end/internal/render"
 )
 
 func Index(v *render.Render) http.HandlerFunc {
