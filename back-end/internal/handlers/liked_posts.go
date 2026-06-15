@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 
-	"forum/back-end/internal/database"
 	"forum/back-end/internal/render"
 	"forum/back-end/internal/server"
 )
