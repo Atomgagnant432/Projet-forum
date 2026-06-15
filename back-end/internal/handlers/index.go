@@ -3,19 +3,33 @@ package handlers
 import (
 	"net/http"
 
+	"forum/back-end/internal/models"
 	"forum/back-end/internal/render"
 )
 
-func Index(v *render.Render) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/" {
-			w.WriteHeader(http.StatusNotFound)
-			v.Render(w, "error.html", map[string]any{
-				"Code":    404,
-				"Message": "Page introuvable",
-			})
+
+func Index(r *render.Render) http.HandlerFunc {
+
+	return func(w http.ResponseWriter, req *http.Request) {
+
+
+		posts, err := models.GetAllPosts()
+
+		if err != nil {
+			http.Error(w,"Database error",500)
 			return
 		}
-		v.Render(w, "index.html", map[string]any{})
+
+
+		data := map[string]any{
+			"Posts": posts,
+		}
+
+
+		r.Render(
+			w,
+			"HomePage.html",
+			data,
+		)
 	}
 }
