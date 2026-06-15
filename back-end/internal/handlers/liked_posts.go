@@ -1,28 +1,25 @@
 package handlers
 
 import (
+	"database/sql"
 	"net/http"
 
+	"forum/back-end/internal/models"
 	"forum/back-end/internal/render"
-	"forum/back-end/server"
 )
 
-func LikedPosts(v *render.Render) http.HandlerFunc {
+func LikedPosts(db *sql.DB, v *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		user, err := server.GetCurrentUser(r)
-		if err != nil || user == nil {
-			http.Redirect(w, r, "/signin", http.StatusSeeOther)
-			return
-		}
+		// temporaire : tant que les sessions ne sont pas finies
+		userID := "1"
 
-		posts, err := database.GetLikedPostsByUser(user.ID)
+		posts, err := models.GetLikedPostsByUser(db, userID)
 		if err != nil {
 			http.Error(w, "Erreur interne", http.StatusInternalServerError)
 			return
 		}
 
 		v.Render(w, "LikedPosts.html", map[string]any{
-			"User":  user,
 			"Posts": posts,
 		})
 	}

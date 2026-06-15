@@ -30,13 +30,11 @@ func Start() {
 	//loading all static file needed
 	fs := http.FileServer(http.Dir("front-end/static"))
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
-	
-	mux.HandleFunc("/", handlers.Index(db, v))
 
 	//routes
-	// mux.HandleFunc("/", handlers.index(v))
 	mux.HandleFunc("/register", handlers.HandlerRegister(db))
 	mux.HandleFunc("/login", handlers.HandlerConnexion(db))
+	mux.HandleFunc("/liked-posts", handlers.LikedPosts(db, v))
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
