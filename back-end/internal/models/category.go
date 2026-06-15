@@ -1,5 +1,9 @@
 package models
 
+import (
+	"forum/back-end/database/_sql"
+)
+
 type Category struct {
 	ID   int
 	Name string

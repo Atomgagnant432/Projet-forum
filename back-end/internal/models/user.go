@@ -1,9 +1,8 @@
 package models
 
 import (
-	"database/_sql"
+	"forum/back-end/database/_sql"
 )
-
 
 type User struct {
 	ID        int
