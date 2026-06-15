@@ -147,7 +147,6 @@ func HandlerRegister(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		w.WriteHeader(http.StatusCreated)
-		w.Write([]byte("Compte créé avec succès"))
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
 }

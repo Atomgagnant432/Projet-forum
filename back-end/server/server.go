@@ -35,6 +35,7 @@ func Start() {
 	//routes
 	// mux.HandleFunc("/", handlers.index(v))
 	mux.HandleFunc("/register", handlers.HandlerRegister(db))
+	mux.HandleFunc("/login", handlers.HandlerConnexion(db))
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/register", http.StatusSeeOther)
