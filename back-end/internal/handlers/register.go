@@ -16,10 +16,15 @@ type AuthPageData struct {
 	Pseudo       string
 }
 
-func renderRegisterPage(w http.ResponseWriter, errorMessage, email, pseudo string) {
-	t, err := template.ParseFiles("templates/RegisterPage.html")
+func renderRegisterPage(
+	w http.ResponseWriter, errorMessage string, email string, pseudo string,) {
+	t, err := template.ParseFiles("front-end/template/SignUp.html")
 	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		http.Error(
+			w,
+			"Internal Server Error",
+			http.StatusInternalServerError,
+		)
 		return
 	}
 
@@ -29,7 +34,13 @@ func renderRegisterPage(w http.ResponseWriter, errorMessage, email, pseudo strin
 		Pseudo:       pseudo,
 	}
 
-	t.Execute(w, data)
+	if err := t.Execute(w, data); err != nil {
+		http.Error(
+			w,
+			"Erreur lors de l'affichage",
+			http.StatusInternalServerError,
+		)
+	}
 }
 
 // Check the size of email and pseudo 
@@ -73,6 +84,12 @@ func StrongPassword(password string) string {
 
 func HandlerRegister(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		if r.Method == http.MethodGet {
+			renderRegisterPage(w, "", "", "")
+			return
+		}
+
 		if r.Method != http.MethodPost {
 			http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
 			return
@@ -80,7 +97,7 @@ func HandlerRegister(db *sql.DB) http.HandlerFunc {
 
 		email := strings.TrimSpace(r.FormValue("email"))
 		pseudo := strings.TrimSpace(r.FormValue("pseudo"))
-		password := r.FormValue("pwd") 
+		password := r.FormValue("pwd")
 		passwordConfirm := r.FormValue("pwd-confirm")
 
 		message := validateRegister(email, pseudo, password)
@@ -90,8 +107,13 @@ func HandlerRegister(db *sql.DB) http.HandlerFunc {
 		}
 
 		if password != passwordConfirm {
-			renderRegisterPage(w,"Les mots de pass ne correspondent pas", email, pseudo)
-			return 
+			renderRegisterPage(
+				w,
+				"Les mots de passe ne correspondent pas",
+				email,
+				pseudo,
+			)
+			return
 		}
 
 		hash, err := bcrypt.GenerateFromPassword(
@@ -116,10 +138,16 @@ func HandlerRegister(db *sql.DB) http.HandlerFunc {
 			string(hash),
 		)
 		if err != nil {
-			renderRegisterPage(w,"Email ou pseudo déjà utilisé", email, pseudo)
+			renderRegisterPage(
+				w,
+				"Email ou pseudo déjà utilisé",
+				email,
+				pseudo,
+			)
 			return
 		}
 
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		w.WriteHeader(http.StatusCreated)
+		w.Write([]byte("Compte créé avec succès"))
 	}
 }

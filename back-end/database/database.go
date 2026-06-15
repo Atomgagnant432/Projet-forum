@@ -9,7 +9,7 @@ import (
 func OpenDatabase() (*sql.DB, error) {
 	db, err := sql.Open(
 		"sqlite3",
-		"./back-end/database/forum.db",
+		"./back-end/database/_sql/forum.db",
 	)
 	if err != nil {
 		return nil, err
