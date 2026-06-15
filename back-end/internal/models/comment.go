@@ -1,7 +1,7 @@
 package models
 
 import (
-	"forum/back-end/database/_sql"
+	"forum/back-end/database"
 )
 
 type Comment struct {

@@ -1,7 +1,7 @@
 package main
 
-import "forum/server"
+import "forum/back-end/server"
 
-func main(){
+func main() {
 	server.Start()
 }
