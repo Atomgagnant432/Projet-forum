@@ -4,27 +4,36 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"forum/back-end/database"
+	"forum/back-end/internal/handlers"
+	"forum/back-end/internal/render"
 )
 
 func Start() {
-	//future render
-	v, err := render.New("../front-end/template/*.html")
+	//loading database with error catch
+	db, err := database.OpenDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	//render all the template
+	v, err := render.New("front-end/template/*.html")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	//Starting Server
-
+	//loading the server
 	mux := http.NewServeMux()
-	
-	//Getting all filed
+
+	//loading all static file needed
 	fs := http.FileServer(http.Dir("front-end/static"))
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+	
+	mux.HandleFunc("/", handlers.Index(db, v))
 
-	//routes
-	mux.HandleFunc("/", handlers.index(v))
-
-	//server started
+	//starting the server
 	fmt.Println("Server running at http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
