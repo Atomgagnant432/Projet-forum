@@ -3,19 +3,40 @@ package handlers
 import (
 	"net/http"
 
+	"forum/back-end/database/sql"
+	"forum/back-end/internal/models"
 	"forum/back-end/internal/render"
 )
 
-func Index(v *render.Render) http.HandlerFunc {
+func Index(db *sql.DB, v *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
-			w.WriteHeader(http.StatusNotFound)
-			v.Render(w, "error.html", map[string]any{
-				"Code":    404,
-				"Message": "Page introuvable",
-			})
+			http.NotFound(w, r)
 			return
 		}
-		v.Render(w, "index.html", map[string]any{})
+
+		if r.Method != http.MethodGet {
+			http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+			return
+		}
+
+		categories, err := models.GetAllCategories(db)
+		if err != nil {
+			http.Error(w, "Erreur chargement catégories", http.StatusInternalServerError)
+			return
+		}
+
+		posts, err := models.GetHomePosts(db)
+		if err != nil {
+			http.Error(w, "Erreur chargement posts", http.StatusInternalServerError)
+			return
+		}
+
+		data := models.HomePageData{
+			Categories: categories,
+			Posts:      posts,
+		}
+
+		v.Render(w, "HomePage.html", data)
 	}
 }
