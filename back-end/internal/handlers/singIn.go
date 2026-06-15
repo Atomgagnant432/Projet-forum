@@ -42,7 +42,7 @@ func HandlerConnexion(db *sql.DB) http.HandlerFunc {
 		email := strings.TrimSpace(r.FormValue("email"))
 		password := r.FormValue("pwd")
 
-		row := db.QueryRow(`SELECT email, password, pseudo FROM users WHERE email = ?`, email,)
+		row := db.QueryRow(`SELECT id, password_hash, pseudo FROM users WHERE email = ?`, email,)
 
 		var id int
 		var hash string

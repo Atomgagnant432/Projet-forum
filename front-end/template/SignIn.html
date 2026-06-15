@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="../static/css/SignIn.css">
+</head>
+<body>
+
+    <header>
+        <a href="HomePage.html">
+            <img src="../static/icons/logo.png" alt="Logo">
+        </a>
+    </header>
+
+    <div class="container">
+        <h1>Connexion</h1>
+
+        {{if .ErrorMessage}}
+            <p id="error-msg">{{.ErrorMessage}}</p>
+        {{end}}
+
+        <form method="POST" action="/login">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" value="{{.Email}}" placeholder="exemple@mail.com">
+
+            <label for="pwd">Mot de passe</label>
+            <input type="password" id="pwd" name="pwd" placeholder="••••••••">
+
+            <button class="btn" type="submit">Se connecter</button>
+
+            <p class="link">Pas de compte ? <a href="/register">S'inscrire</a></p>
+
+        </form>
+    </div>
+
+</body>
+</html>
