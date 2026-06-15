@@ -1,7 +1,9 @@
 package models
 
 import (
-	"forum/back-end/database"
+	"database/sql"
+
+	"forum/back-end/pkg/utils"
 )
 
 type Post struct {
@@ -65,7 +67,7 @@ func GetHomePosts(db *sql.DB) ([]Post, error) {
 		}
 
 		post.Avatar = "👤"
-		post.Title = makeTitle(post.Content)
+		post.Title = utils.MakeTitle(post.Content)
 
 		comments, err := GetCommentsByPostID(db, post.ID)
 		if err != nil {

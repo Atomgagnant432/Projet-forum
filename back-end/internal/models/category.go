@@ -1,7 +1,7 @@
 package models
 
 import (
-	"forum/back-end/database"
+	"database/sql"
 )
 
 type Category struct {

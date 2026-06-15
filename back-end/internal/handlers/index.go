@@ -3,7 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"forum/back-end/database"
+	"database/sql"
+
 	"forum/back-end/internal/models"
 	"forum/back-end/internal/render"
 )
@@ -20,7 +21,7 @@ func Index(db *sql.DB, v *render.Render) http.HandlerFunc {
 			return
 		}
 
-		categories, err := models.GetAllCategories(db)
+		categories, err := models.GetCategories(db)
 		if err != nil {
 			http.Error(w, "Erreur chargement catégories", http.StatusInternalServerError)
 			return
