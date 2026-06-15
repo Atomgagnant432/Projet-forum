@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts likés</title>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/LikedPosts.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-search" id="sidebar-search">
+            <input type="text" placeholder="Rechercher...">
+        </div>
+        <ul>
+            <li>
+                <a href="/">
+                    <img src="/static/icons/HomeIcon.png" class="icon" alt="Accueil">
+                    <span class="text">Accueil</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profil">
+                    <img src="/static/icons/ProfilIcon.png" class="icon" alt="Profil">
+                    <span class="text">Profil</span>
+                </a>
+            </li>
+            <li>
+                <a href="/liked-posts" class="active">
+                    <img src="/static/icons/LikeIcon.png" class="icon" alt="Posts likés">
+                    <span class="text">Posts likés</span>
+                </a>
+            </li>
+            <li>
+                <a href="/settings">
+                    <img src="/static/icons/SettingsIcon.png" class="icon" alt="Paramètres">
+                    <span class="text">Paramètres</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <header class="header" id="header">
+        <div class="header-logo">
+            <img src="/static/icons/logo.png" alt="Logo">
+        </div>
+        <div class="header-search" id="header-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Rechercher...">
+        </div>
+        <div class="header-title">Posts likés</div>
+    </header>
+
+    <main class="liked-content">
+
+        <div class="liked-header">
+            <h1 class="liked-title">
+                <span class="liked-title-icon">♥</span>
+                Mes posts likés
+            </h1>
+            <span class="liked-count">{{len .Posts}} post{{if gt (len .Posts) 1}}s{{end}}</span>
+        </div>
+
+        {{if .Posts}}
+            <div class="posts-list">
+                {{range .Posts}}
+                <article class="post-card">
+
+                    <div class="post-card-header">
+                        <a href="/profil/user?id={{.UserID}}" class="post-author">
+                            <span class="author-avatar">{{.Avatar}}</span>
+                            <span class="author-name">@{{.Pseudo}}</span>
+                        </a>
+                        <time class="post-date" datetime="{{.CreatedAt}}">{{.CreatedAt}}</time>
+                    </div>
+
+                    {{if .Categories}}
+                    <div class="post-categories">
+                        {{range .Categories}}
+                        <span class="category-tag">{{.Name}}</span>
+                        {{end}}
+                    </div>
+                    {{end}}
+
+                    <h2 class="post-title">{{.Title}}</h2>
+
+                    <p class="post-excerpt">{{.Content}}</p>
+
+                    {{if .ImageURL}}
+                    <div class="post-image-wrap">
+                        <img src="{{.ImageURL}}" alt="Image du post" class="post-image">
+                    </div>
+                    {{end}}
+
+                    <div class="post-footer">
+                        <div class="post-reactions">
+                            <form action="/like" method="POST" class="reaction-form">
+                                <input type="hidden" name="post_id" value="{{.ID}}">
+                                <input type="hidden" name="type" value="like">
+                                <input type="hidden" name="redirect" value="/liked-posts">
+                                <button type="submit" class="reaction-btn like-btn {{if .UserLiked}}active{{end}}">
+                                    👍 <span class="reaction-count">{{.Likes}}</span>
+                                </button>
+                            </form>
+
+                            <form action="/like" method="POST" class="reaction-form">
+                                <input type="hidden" name="post_id" value="{{.ID}}">
+                                <input type="hidden" name="type" value="dislike">
+                                <input type="hidden" name="redirect" value="/liked-posts">
+                                <button type="submit" class="reaction-btn dislike-btn {{if .UserDisliked}}active{{end}}">
+                                    👎 <span class="reaction-count">{{.Dislikes}}</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <a href="/post?id={{.ID}}" class="post-link">
+                            Voir le post →
+                        </a>
+                    </div>
+
+                </article>
+                {{end}}
+            </div>
+
+        {{else}}
+            <div class="empty-state">
+                <div class="empty-icon">♡</div>
+                <h2 class="empty-title">Aucun post liké pour l'instant</h2>
+                <p class="empty-subtitle">Les posts que vous likez apparaîtront ici.</p>
+                <a href="/" class="empty-cta">Découvrir les posts</a>
+            </div>
+        {{end}}
+
+    </main>
+
+</body>
+</html>
