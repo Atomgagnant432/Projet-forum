@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Paramètres</title>
+    <link rel="stylesheet" href="../static/css/settings.css">
+</head>
+<body>
+
+<div class="settings-container">
+    <h1>Paramètres du compte</h1>
+
+    <!-- Changer username -->
+    <section class="setting-card">
+        <h2>Nom d'utilisateur</h2>
+
+        <form action="/settings/username" method="POST">
+            <input
+                type="text"
+                name="pseudo"
+                placeholder="Nouveau pseudo"
+                required
+            >
+            <button type="submit">Modifier</button>
+        </form>
+    </section>
+
+    <!-- Changer mot de passe -->
+    <section class="setting-card">
+        <h2>Mot de passe</h2>
+
+        <form action="/settings/password" method="POST">
+            <input
+                type="password"
+                name="old_password"
+                placeholder="Mot de passe actuel"
+                required
+            >
+
+            <input
+                type="password"
+                name="new_password"
+                placeholder="Nouveau mot de passe"
+                required
+            >
+
+            <button type="submit">
+                Changer le mot de passe
+            </button>
+        </form>
+    </section>
+
+    <!-- Compte privé/public -->
+    <section class="setting-card">
+        <h2>Confidentialité</h2>
+
+        <form action="/settings/privacy" method="POST">
+            <label class="switch">
+                <input type="checkbox" name="is_private">
+                <span class="slider"></span>
+            </label>
+
+            <span>Compte privé</span>
+
+            <button type="submit">
+                Enregistrer
+            </button>
+        </form>
+    </section>
+
+    <!-- Thème -->
+    <section class="setting-card">
+        <h2>Thème</h2>
+
+        <button id="theme-toggle">
+            Basculer thème clair/sombre
+        </button>
+    </section>
+
+    <!-- Déconnexion -->
+    <section class="setting-card">
+        <h2>Session</h2>
+
+        <form action="/logout" method="POST">
+            <button class="logout-btn">
+                Déconnexion
+            </button>
+        </form>
+    </section>
+</div>
+
+</body>
+</html>
