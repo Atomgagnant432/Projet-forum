@@ -1,35 +1,35 @@
 package handlers
 
 import (
+	"database/sql"
 	"net/http"
 
 	"forum/back-end/internal/models"
 	"forum/back-end/internal/render"
 )
 
-
-func Index(r *render.Render) http.HandlerFunc {
-
-	return func(w http.ResponseWriter, req *http.Request) {
-
-
-		posts, err := models.GetAllPosts()
-
-		if err != nil {
-			http.Error(w,"Database error",500)
+func Index(db *sql.DB, v *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
 			return
 		}
 
-
-		data := map[string]any{
-			"Posts": posts,
+		categories, err := models.GetCategories(db)
+		if err != nil {
+			http.Error(w, "Erreur catégories", http.StatusInternalServerError)
+			return
 		}
 
+		posts, err := models.GetHomePosts(db)
+		if err != nil {
+			http.Error(w, "Erreur posts", http.StatusInternalServerError)
+			return
+		}
 
-		r.Render(
-			w,
-			"HomePage.html",
-			data,
-		)
+		v.Render(w, "HomePage.html", map[string]any{
+			"Categories": categories,
+			"Posts":      posts,
+		})
 	}
 }
