@@ -1,3 +1,4 @@
+{{define "ProfilePage.html"}}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -5,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page de profil</title>
-    <link rel="stylesheet" href="../static/css/common.css">
-    <link rel="stylesheet" href="../static/css/ProfilePage.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/ProfilePage.css">
 </head>
 
 <body>
@@ -17,20 +18,20 @@
         </div>
         <ul>
             <li>
-                <a href="HomePage.html">
-                    <img src="../static/icons/HomeIcon.png" class="icon">
+                <a href="/">
+                    <img src="/static/icons/HomeIcon.png" class="icon" alt="Accueil">
                     <span class="text">Accueil</span>
                 </a>
             </li>
             <li>
-                <a href="ProfilPage.html">
-                    <img src="../static/icons/ProfilIcon.png" class="icon">
+                <a href="/profile">
+                    <img src="/static/icons/ProfilIcon.png" class="icon" alt="Profil">
                     <span class="text">Profil</span>
                 </a>
             </li>
             <li>
-                <a href="SettingsPage.html">
-                    <img src="../static/icons/SettingsIcon.png" class="icon">
+                <a href="/settings">
+                    <img src="/static/icons/SettingsIcon.png" class="icon" alt="Paramètres">
                     <span class="text">Paramètres</span>
                 </a>
             </li>
@@ -39,7 +40,7 @@
 
     <header class="header" id="header">
         <div class="header-logo">
-            <img src="../static/icons/logo.png" alt="Logo">
+            <img src="/static/icons/logo.png" alt="Logo">
         </div>
         <div class="header-search" id="header-search">
             <span class="search-icon"></span>
@@ -50,118 +51,81 @@
 
     <section class="content">
 
+        {{if .Error}}
+        <div class="alert alert-error">{{.Error}}</div>
+        {{end}}
+
+        {{if .Success}}
+        <div class="alert alert-success">{{.Success}}</div>
+        {{end}}
+
         <div class="profile-card">
             <div class="profile-banner">
                 <div class="profile-avatar-wrap">
-                    <img src="../static/icons/ProfilIcon.png" class="profile-avatar" alt="Photo de profil" id="avatarImg">
+                    {{if .User.HasAvatar}}
+                    <img src="/profile/avatar/{{.User.ID}}" class="profile-avatar" alt="Photo de profil">
+                    {{else}}
+                    <img src="/static/icons/ProfilIcon.png" class="profile-avatar" alt="Photo de profil">
+                    {{end}}
                 </div>
             </div>
 
             <div class="profile-body">
-                <h2 class="profile-username" id="displayUsername">username</h2>
-                <p class="profile-description" id="displayDescription">description</p>
+                <h2 class="profile-username">{{.User.Pseudo}}</h2>
+                <p class="profile-description">{{if .User.Description}}{{.User.Description}}{{else}}Aucune description.{{end}}</p>
 
                 <div class="profile-meta">
                     <div class="meta-item">
                         <span class="meta-label">Email</span>
-                        <span class="meta-value">user.name@exemple.fr</span>
+                        <span class="meta-value">{{.User.Email}}</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Membre depuis</span>
-                        <span class="meta-value">la date lol</span>
+                        <span class="meta-value">{{.User.CreatedAt}}</span>
                     </div>
                 </div>
 
                 <div class="profile-actions">
-                    <button class="btn btn-primary" onclick="document.getElementById('editModal').style.display='flex'">
-                        Modifier le profil
-                    </button>
-                    <button class="btn btn-secondary" onclick="document.getElementById('createPostModal').style.display='flex'">
-                        Créer un post
-                    </button>
+                    <a href="/profile?modal=edit" class="btn btn-primary">Modifier le profil</a>
+                    <a href="/create" class="btn btn-secondary">Créer un post</a>
                 </div>
             </div>
         </div>
 
     </section>
 
-    <div class="modal-overlay" id="editModal" style="display:none;">
+    {{if eq .Modal "edit"}}
+    <div class="modal-overlay" id="editModal">
         <div class="modal">
             <h3 class="modal-title">Modifier le profil</h3>
 
-            <div class="form-group">
-                <label for="inputAvatar">Photo de profil</label>
-                <input type="file" id="inputAvatar" accept="image/*">
-            </div>
+            <form method="POST" action="/profile/edit" enctype="multipart/form-data">
 
-            <div class="form-group">
-                <label for="inputUsername">Nom d'utilisateur</label>
-                <input type="text" id="inputUsername" value="username">
-            </div>
+                <div class="form-group">
+                    <label for="inputAvatar">Photo de profil</label>
+                    <input type="file" id="inputAvatar" name="avatar" accept="image/jpeg,image/png,image/gif">
+                </div>
 
-            <div class="form-group">
-                <label for="inputDescription">Description</label>
-                <textarea id="inputDescription">blablabla</textarea>
-            </div>
+                <div class="form-group">
+                    <label for="inputUsername">Nom d'utilisateur</label>
+                    <input type="text" id="inputUsername" name="pseudo" value="{{.User.Pseudo}}" required>
+                </div>
 
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="document.getElementById('editModal').style.display='none'">Annuler</button>
-                <button class="btn btn-primary" onclick="saveProfile()">Enregistrer</button>
-            </div>
+                <div class="form-group">
+                    <label for="inputDescription">Description</label>
+                    <textarea id="inputDescription" name="description">{{.User.Description}}</textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <a href="/profile" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+
+            </form>
         </div>
     </div>
-
-    <div class="modal-overlay" id="createPostModal" style="display:none;">
-        <div class="modal">
-            <h3 class="modal-title">Nouveau post</h3>
-
-            <div class="form-group">
-                <label for="postTitle">Titre</label>
-                <input type="text" id="postTitle" placeholder="Titre du post">
-            </div>
-
-            <div class="form-group">
-                <label for="postContent">Contenu</label>
-                <textarea id="postContent" placeholder="Description du post"></textarea>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="document.getElementById('createPostModal').style.display='none'">Annuler</button>
-                <button class="btn btn-primary">Poster</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function saveProfile() {
-            var newUsername = document.getElementById('inputUsername').value.trim();
-            var newDesc = document.getElementById('inputDescription').value.trim();
-            var fileInput = document.getElementById('inputAvatar');
-
-            if (newUsername) {
-                document.getElementById('displayUsername').textContent = newUsername;
-            }
-            if (newDesc) {
-                document.getElementById('displayDescription').textContent = newDesc;
-            }
-            if (fileInput.files && fileInput.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarImg').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-
-            document.getElementById('editModal').style.display = 'none';
-        }
-
-        document.getElementById('editModal').addEventListener('click', function(e) {
-            if (e.target === this) this.style.display = 'none';
-        });
-        document.getElementById('createPostModal').addEventListener('click', function(e) {
-            if (e.target === this) this.style.display = 'none';
-        });
-    </script>
+    {{end}}
 
 </body>
 </html>
+{{end}}
