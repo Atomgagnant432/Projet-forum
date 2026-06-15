@@ -11,18 +11,18 @@ import (
 )
 
 func Start() {
-	//loading database with error catch
-	db, err := database.OpenDB()
+	db, err := database.OpenDatabase()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Erreur ouverture BDD :", err)
 	}
 	defer db.Close()
 
-	//render all the template
+	//future render
 	v, err := render.New("front-end/template/*.html")
 	if err != nil {
 		log.Fatal(err)
 	}
+	print(v)
 
 	//loading the server
 	mux := http.NewServeMux()
@@ -33,7 +33,22 @@ func Start() {
 	
 	mux.HandleFunc("/", handlers.Index(db, v))
 
-	//starting the server
+	//routes
+	// mux.HandleFunc("/", handlers.index(v))
+	mux.HandleFunc("/register", handlers.HandlerRegister(db))
+	mux.HandleFunc("/login", handlers.HandlerConnexion(db))
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
+
+		v.Render(w, "HomePage.html", nil)
+
+	})
+
+	//server started
 	fmt.Println("Server running at http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
