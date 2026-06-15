@@ -10,7 +10,7 @@ type Post struct {
 	ID           int
 	UserID       int
 	Avatar       string
-	Pseudo        string
+	Pseudo       string
 	Title        string
 	Content      string
 	ImageLink    string
@@ -19,6 +19,9 @@ type Post struct {
 	Comments     []Comment
 	LikeCount    int
 	DislikeCount int
+	UserLiked    int
+	UserDisliked int
+	Categories   []Category
 }
 
 func GetHomePosts(db *sql.DB) ([]Post, error) {
@@ -61,6 +64,8 @@ func GetHomePosts(db *sql.DB) ([]Post, error) {
 			&post.CommentCount,
 			&post.LikeCount,
 			&post.DislikeCount,
+			&post.UserLiked,
+			&post.UserDisliked,
 		)
 		if err != nil {
 			return nil, err

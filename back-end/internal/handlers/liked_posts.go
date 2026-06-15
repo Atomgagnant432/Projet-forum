@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"forum/back-end/internal/render"
-	"forum/back-end/internal/server"
+	"forum/back-end/server"
 )
 
 func LikedPosts(v *render.Render) http.HandlerFunc {
