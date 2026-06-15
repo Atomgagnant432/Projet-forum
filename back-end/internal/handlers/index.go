@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"database/sql"
 	"net/http"
 
+	"forum/back-end/database/sql"
 	"forum/back-end/internal/models"
 	"forum/back-end/internal/render"
 )
@@ -15,21 +15,28 @@ func Index(db *sql.DB, v *render.Render) http.HandlerFunc {
 			return
 		}
 
-		categories, err := models.GetCategories(db)
+		if r.Method != http.MethodGet {
+			http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+			return
+		}
+
+		categories, err := models.GetAllCategories(db)
 		if err != nil {
-			http.Error(w, "Erreur catégories", http.StatusInternalServerError)
+			http.Error(w, "Erreur chargement catégories", http.StatusInternalServerError)
 			return
 		}
 
 		posts, err := models.GetHomePosts(db)
 		if err != nil {
-			http.Error(w, "Erreur posts", http.StatusInternalServerError)
+			http.Error(w, "Erreur chargement posts", http.StatusInternalServerError)
 			return
 		}
 
-		v.Render(w, "HomePage.html", map[string]any{
-			"Categories": categories,
-			"Posts":      posts,
-		})
+		data := models.HomePageData{
+			Categories: categories,
+			Posts:      posts,
+		}
+
+		v.Render(w, "HomePage.html", data)
 	}
 }
