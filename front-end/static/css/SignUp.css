@@ -1,94 +1,166 @@
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
+    background: #0f0f1b;
+    color: #c8c4f4;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
-    background: white;
-    border-bottom: 1px solid #ccc;
-    padding: 12px 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #1a1a2e;
+    border-bottom: 0.5px solid rgba(127, 119, 221, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    z-index: 100;
 }
 
-header a img {
-    height: 36px;
+header a {
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    height: 32px;
 }
 
 .container {
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 30px 28px;
-    width: 340px;
-    margin: 40px auto;
+    margin-top: 60px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    min-height: calc(100vh - 60px);
 }
 
-h1 {
-    font-size: 20px;
+form {
+    width: 100%;
+    max-width: 380px;
+    background: #1a1a2e;
+    border: 0.5px solid rgba(127, 119, 221, 0.2);
+    border-radius: 14px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+form h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #c8c4f4;
     margin-bottom: 20px;
-    color: #222;
+    letter-spacing: 0.3px;
     text-align: center;
 }
 
 label {
-    display: block;
     font-size: 13px;
-    color: #444;
-    margin-bottom: 4px;
+    font-weight: 500;
+    color: #a0a0b8;
+    margin-top: 10px;
+}
+
+label:first-of-type {
+    margin-top: 0;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 0.5px solid rgba(127, 119, 221, 0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #c8c4f4;
     font-size: 14px;
-    margin-bottom: 14px;
     outline: none;
+    width: 100%;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    margin-top: 4px;
 }
 
-input:focus {
-    border-color: #4a90d9;
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #a0a0b8;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: rgba(127, 119, 221, 0.7);
+    background: rgba(127, 119, 221, 0.07);
 }
 
 #error-msg {
     font-size: 13px;
-    color: #d9534f;
-    margin-bottom: 10px;
-    min-height: 18px;
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.08);
+    border: 0.5px solid rgba(248, 113, 113, 0.25);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    text-align: center;
+    display: none;
+}
+
+#error-msg:not(:empty) {
+    display: block;
 }
 
 .btn {
-    width: 100%;
-    padding: 9px;
-    background: #4a90d9;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    margin-top: 20px;
+    background: rgba(127, 119, 221, 0.2);
+    border: 0.5px solid rgba(127, 119, 221, 0.5);
+    border-radius: 8px;
+    color: #c8c4f4;
     font-size: 14px;
+    font-weight: 500;
+    padding: 11px;
     cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    width: 100%;
 }
 
 .btn:hover {
-    background: #357abd;
+    background: rgba(127, 119, 221, 0.35);
+    border-color: rgba(127, 119, 221, 0.8);
+    color: #e8e5ff;
+}
+
+.btn:active {
+    background: rgba(127, 119, 221, 0.45);
 }
 
 .link {
-    text-align: center;
-    margin-top: 14px;
     font-size: 13px;
-    color: #666;
+    color: #a0a0b8;
+    text-align: center;
+    margin-top: 16px;
 }
 
 .link a {
-    color: #4a90d9;
+    color: #afa9ec;
     text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.link a:hover {
+    color: #c8c4f4;
 }

@@ -1,47 +1,188 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
     margin: 0;
+    padding: 0;
+
+    background: #0f0f1b;
+    color: #c8c4f4;
+    font-family: Arial, sans-serif;
 }
 
 .settings-container {
-    max-width: 700px;
+    max-width: 900px;
     margin: 40px auto;
     padding: 20px;
 }
 
+.settings-container h1 {
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
 .setting-card {
-    background: white;
-    padding: 20px;
+    background: #1a1a2e;
+    border: 1px solid rgba(127, 119, 221, 0.25);
+    border-radius: 14px;
+
+    padding: 24px;
     margin-bottom: 20px;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.setting-card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #c8c4f4;
+}
+
+.setting-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.setting-card input[type="text"],
+.setting-card input[type="password"] {
+    background: rgba(255, 255, 255, 0.05);
+
+    border: 1px solid rgba(127, 119, 221, 0.3);
     border-radius: 10px;
+
+    padding: 12px 14px;
+
+    color: #c8c4f4;
+    font-size: 14px;
+
+    outline: none;
+    transition: all 0.2s ease;
 }
 
-h1 {
-    text-align: center;
+.setting-card input::placeholder {
+    color: #8d8ca8;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    margin-bottom: 12px;
-    box-sizing: border-box;
+.setting-card input:focus {
+    border-color: #7f77dd;
+    box-shadow: 0 0 0 3px rgba(127, 119, 221, 0.15);
 }
 
 button {
-    padding: 10px 16px;
+    align-self: flex-start;
+
+    background: #7f77dd;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 12px 18px;
+
     cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #918af0;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.setting-card form label.switch {
+    margin-bottom: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+
+    width: 54px;
+    height: 28px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+
+    cursor: pointer;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(255, 255, 255, 0.15);
+    transition: .3s;
+
+    border-radius: 50px;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+
+    height: 20px;
+    width: 20px;
+
+    left: 4px;
+    bottom: 4px;
+
+    background: white;
+    transition: .3s;
+
+    border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+    background: #7f77dd;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+.setting-card form span {
+    color: #c8c4f4;
+    font-size: 14px;
 }
 
 .logout-btn {
-    background: #d9534f;
-    color: white;
-    border: none;
+    background: #d14f5f;
 }
 
-input[type="checkbox"] {
-    width: auto;
-    padding: 0;
-    margin: 0;
+.logout-btn:hover {
+    background: #e45d6d;
+}
+
+@media (max-width: 768px) {
+
+    .settings-container {
+        margin: 20px;
+        padding: 0;
+    }
+
+    .setting-card {
+        padding: 18px;
+    }
+
+    .settings-container h1 {
+        font-size: 26px;
+    }
 }
