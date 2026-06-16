@@ -39,6 +39,7 @@ func Start() {
 	mux.HandleFunc("/", handlers.HandlerIndex(db, v))
 	mux.HandleFunc("/post/like", handlers.HandlerLikePost(db))
 	mux.HandleFunc("/post/dislike", handlers.HandlerDislikePost(db))
+	mux.HandleFunc("/logout", handlers.HandlerLogout())
 
 	//server started
 	fmt.Println("Server running at http://localhost:8080")
