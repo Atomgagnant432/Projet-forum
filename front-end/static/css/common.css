@@ -23,7 +23,7 @@
 }
 
 .header-logo img {
-    height: 32px;
+    height: 100px;
 }
 
 .header-search {
@@ -125,7 +125,8 @@ main {
 }
 
 .sidebar li {
-    margin: 4px 0;
+    margin-top: 40px;
+    gap: 60px;
 }
 
 .sidebar a {
@@ -205,3 +206,4 @@ main {
 .sidebar-search input::placeholder {
     color: #a0a0b8;
 }
+
