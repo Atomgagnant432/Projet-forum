@@ -40,6 +40,7 @@ func Start() {
 	mux.HandleFunc("/post/dislike", handlers.HandlerDislikePost(db))
 	mux.HandleFunc("/logout", handlers.HandlerLogout())
 	mux.HandleFunc("/post/create", handlers.HandlerCreation(db,v))
+	mux.HandleFunc("/comment/create", handlers.CreateComment(db))
 	mux.HandleFunc("/profile", handlers.ProfileHandler(db,v))
 
 	//server started
