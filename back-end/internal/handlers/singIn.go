@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strings"
 	"html/template"
+	"forum/back-end/internal/models"
+
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -62,6 +64,12 @@ func HandlerConnexion(db *sql.DB) http.HandlerFunc {
 		res := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 		if res != nil {
 			renderLoginPage(w, "Identifiants incorrects", email)
+			return
+		}
+		
+		err = models.CreateSession(w, id)
+		if err != nil {
+			http.Error(w, "Erreur création session", http.StatusInternalServerError)
 			return
 		}
 		
