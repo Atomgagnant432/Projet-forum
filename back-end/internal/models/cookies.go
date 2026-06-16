@@ -25,9 +25,12 @@ var (
 )
 
 type CurrentUser struct {
-	ID     int
-	Pseudo string
-	Email  string
+	ID          int
+	Pseudo      string
+	Email       string
+	CreatedAt   string
+	Description string
+	HasAvatar   bool
 }
 
 func generateSessionID() (string, error) {
@@ -91,10 +94,20 @@ func GetCurrentUser(db *sql.DB, r *http.Request) (*CurrentUser, error) {
 
 	var user CurrentUser
 
-	err = db.QueryRow(`SELECT id, pseudo, email FROM users WHERE id = ? `, userID).Scan(&user.ID, &user.Pseudo, &user.Email,)
+	err = db.QueryRow(`SELECT id, pseudo, email, created_at FROM users WHERE id = ?`, userID).Scan(
+		&user.ID,
+		&user.Pseudo,
+		&user.Email,
+		&user.CreatedAt,
+	)
 
 	if err != nil {
 		return nil, err
+	}
+
+	var avatarCount int
+	if err = db.QueryRow(`SELECT COUNT(1) FROM user_avatars WHERE user_id = ?`, userID).Scan(&avatarCount); err == nil {
+		user.HasAvatar = avatarCount > 0
 	}
 
 	return &user, nil
