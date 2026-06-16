@@ -125,7 +125,8 @@ main {
 }
 
 .sidebar li {
-    margin: 4px 0;
+    margin-top: 40px;
+    gap: 60px;
 }
 
 .sidebar a {

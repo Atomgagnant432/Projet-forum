@@ -157,6 +157,7 @@ body {
     background: #d14f5f;
 }
 
+/* Barre du bas */
 .content-toolbar {
     display: flex;
     align-items: center;
@@ -167,20 +168,35 @@ body {
     border-top: 1px solid rgba(127, 119, 221, 0.15);
 }
 
+/* Permet d'aligner parfaitement le bouton image et le bouton catégories */
+.content-toolbar > .toolbar-btn,
+.content-toolbar > .category-toolbar-dropdown {
+    height: 58px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style commun des boutons */
 .toolbar-btn {
-    width: 42px;
-    height: 42px;
+    width: 58px;
+    height: 58px;
+
+    box-sizing: border-box;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    padding: 0;
+    margin: 0;
+
     cursor: pointer;
 
     background: rgba(255, 255, 255, 0.05);
 
-    border: 1px solid rgba(127, 119, 221, 0.2);
+    border: 1px solid rgba(127, 119, 221, 0.35);
     border-radius: 10px;
 
     transition: all 0.2s ease;
@@ -188,24 +204,56 @@ body {
 
 .toolbar-btn:hover {
     background: rgba(127, 119, 221, 0.15);
-    border-color: rgba(127, 119, 221, 0.4);
+    border-color: rgba(127, 119, 221, 0.5);
 }
 
+/* Icônes dans les boutons */
 .toolbar-btn img {
-    width: 20px;
-    height: 20px;
+    display: block;
+
+    object-fit: contain;
+
+    margin: 0;
+    padding: 0;
+}
+
+/* Bouton image : icône plus grosse */
+.image-upload-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Bouton catégories : icône plus grosse */
+.category-btn img {
+    width: 38px;
+    height: 38px;
 }
 
 #image {
     display: none;
 }
 
+/* Dropdown catégories */
 .category-toolbar-dropdown {
     position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .category-toolbar-dropdown summary {
     list-style: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 58px;
+    height: 58px;
+
+    padding: 0;
+    margin: 0;
 }
 
 .category-toolbar-dropdown summary::-webkit-details-marker {
@@ -254,6 +302,7 @@ body {
     accent-color: #7f77dd;
 }
 
+/* Bouton poster */
 .post-btn {
     margin-left: auto;
 
@@ -278,6 +327,20 @@ body {
     transform: translateY(-1px);
 }
 
+#error-msg {
+    background: rgba(209, 79, 95, 0.12);
+    border: 1px solid rgba(209, 79, 95, 0.35);
+    color: #ff9aa8;
+
+    padding: 12px 14px;
+    border-radius: 10px;
+
+    margin-bottom: 20px;
+
+    white-space: pre-line;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
 
     .post-form {
@@ -297,4 +360,109 @@ body {
         width: 100%;
         margin-left: 0;
     }
+}
+
+/* FIX DEFINITIF TOOLBAR CREATION POST */
+
+.content-toolbar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+
+    padding: 18px !important;
+
+    border-top: 1px solid rgba(127, 119, 221, 0.15);
+}
+
+/* Bouton image + bouton catégorie */
+.content-toolbar .toolbar-btn {
+    width: 56px !important;
+    height: 56px !important;
+
+    min-width: 56px !important;
+    min-height: 56px !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
+
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    background: rgba(255, 255, 255, 0.05) !important;
+
+    border: 1px solid rgba(127, 119, 221, 0.35) !important;
+    border-radius: 10px !important;
+
+    cursor: pointer !important;
+}
+
+/* Les images à l'intérieur des boutons */
+.content-toolbar .toolbar-btn img {
+    width: 28px !important;
+    height: 28px !important;
+
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+
+    display: block !important;
+
+    object-fit: contain !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    transform: none !important;
+}
+
+/* Le conteneur du bouton catégorie */
+.category-toolbar-dropdown {
+    height: 56px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    position: relative !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Le summary du details */
+.category-toolbar-dropdown summary {
+    width: 56px !important;
+    height: 56px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    list-style: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.category-toolbar-dropdown summary::-webkit-details-marker {
+    display: none !important;
+}
+
+/* Le bouton poster reste à droite */
+.post-btn {
+    margin-left: auto !important;
+
+    height: 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }

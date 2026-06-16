@@ -163,3 +163,8 @@ input[type="password"]:focus {
 .link a:hover {
     color: #c8c4f4;
 }
+
+
+#invited {
+    text-decoration: none;
+}

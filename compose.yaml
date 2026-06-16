@@ -10,11 +10,10 @@ services:
       - "8080:8080"
 
     volumes:
-      - forum-db:/app/back-end/database/_sql
+      - ./back-end/database/_sql:/app/back-end/database/_sql
       - forum-uploads:/app/front-end/static/uploads
 
     restart: unless-stopped
 
 volumes:
-  forum-db:
   forum-uploads:

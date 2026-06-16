@@ -11,45 +11,42 @@
 
     <div class="sidebar">
         <div class="sidebar-search" id="sidebar-search">
-            <input type="text" placeholder="Rechercher...">
+           <input type="text" placeholder="Rechercher...">
         </div>
         <ul>
-            <li>
-                <a href="/">
-                    <img src="../static/icons/HomeIcon.png" class="icon" alt="Accueil">
-                    <span class="text">Accueil</span>
-                </a>
-            </li>
-            <li>
-                <a href="ProfilPage.html">
-                    <img src="../static/icons/ProfilIcon.png" class="icon" alt="Profil">
-                    <span class="text">Profil</span>
-                </a>
-            </li>
-            <li>
-                <a href="LikedPosts.html" class="active">
-                    <img src="../static/icons/LikeIcon.png" class="icon" alt="Posts likés">
-                    <span class="text">Posts likés</span>
-                </a>
-            </li>
-            <li>
-                <a href="SettingsPage.html">
-                    <img src="../static/icons/SettingsIcon.png" class="icon" alt="Paramètres">
-                    <span class="text">Paramètres</span>
-                </a>
-            </li>
-        </ul>
+        <li>
+            <a href="/">
+                <img src="../static/icons/HomeIcon.png" class="icon" alt="Accueil">
+                <span class="text">Accueil</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/profile">
+                <img src="../static/icons/ProfilIcon.png" class="icon" alt="Profil">
+                <span class="text">Profil</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/settings">
+                <img src="../static/icons/SettingsIcon.png" class="icon" alt="Settings">
+                <span class="text">Paramètres</span>
+            </a>
+        </li>
+    </ul>
     </div>
 
     <header class="header" id="header">
         <div class="header-logo">
-            <img src="../static/icons/logo.png" alt="Logo">
+            <a href="/"><img src="../static/icons/logo.png" alt="Logo"></a>
         </div>
+
         <div class="header-search" id="header-search">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"></span>
             <input type="text" placeholder="Rechercher...">
         </div>
-        <div class="header-title">Posts likés</div>
+        <div class="header-title">FOR MENTOR</div>
     </header>
 
     <main class="liked-content">
