@@ -90,7 +90,13 @@
 
                 <div class="profile-actions">
                     <a href="/profile?modal=edit" class="btn btn-primary">Modifier le profil</a>
-                    <a href="post/create" class="btn btn-secondary">Créer un post</a>
+                    <a href="/post/create" class="btn btn-secondary">Créer un post</a>
+                </div>
+
+                <div class="profile-logout-section">
+                    <form action="/logout" method="POST" aria-label="Déconnexion" class="profile-logout-form">
+                        <button type="submit" class="btn btn-secondary logout-btn">Déconnexion</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -128,14 +134,6 @@
         </div>
     </div>
     {{end}}
-</body>
-</html>
-{{end}}
-
-    <!-- Bouton de déconnexion fixe en bas à droite -->
-    <form action="/logout" method="POST" class="profile-logout-form" aria-label="Déconnexion">
-        <button type="submit" class="logout-btn">Déconnexion</button>
-    </form>
 
 </body>
 </html>
