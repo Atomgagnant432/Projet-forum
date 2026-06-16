@@ -1,9 +1,10 @@
 package handlers
 
 import (
+	"database/sql"
 	"net/http"
-	"PROJET-FORUM/back-end/internal/models"
-	"PROJET-FORUM/back-end/internal/render"
+	"forum/back-end/internal/models"
+	"forum/back-end/internal/render"
 )
 
 type ProfilePageData struct {
@@ -13,7 +14,7 @@ type ProfilePageData struct {
 	Success string
 }
 
-func ProfileHandler(db *sql.DB) http.HandlerFunc {
+func ProfileHandler(db *sql.DB,v *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		// Récupérer l'utilisateur connecté
@@ -31,6 +32,6 @@ func ProfileHandler(db *sql.DB) http.HandlerFunc {
 			Modal: modal,
 		}
 
-		render.RenderTemplate(w, "ProfilePage.html", data)
+		 v.Render(w, "ProfilePage.html", data)
 	}
 }
