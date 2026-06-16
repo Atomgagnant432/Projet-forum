@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
     <link rel="stylesheet" href="../static/css/common.css">
-    <link rel="stylesheet" href="../static/css/HomePage.css"> 
+    <link rel="stylesheet" href="../static/css/HomePage.css">
 </head>
+
 <body>
     <div class="sidebar">
         <div class="sidebar-search" id="sidebar-search">
-           <input type="text" placeholder="Rechercher...">
+            <input type="text" placeholder="Rechercher...">
         </div>
         <ul>
-        <li>
-            <a href="HomePage.html">
-                <img src="../static/icons/HomeIcon.png" class="icon" alt="Accueil">
-                <span class="text">Accueil</span>
-            </a>
-        </li>
+            <li>
+                <a href="HomePage.html">
+                    <img src="../static/icons/HomeIcon.png" class="icon" alt="Accueil">
+                    <span class="text">Accueil</span>
+                </a>
+            </li>
 
-        <li>
-            <a href="ProfilPage.html">
-                <img src="../static/icons/ProfilIcon.png" class="icon" alt="Profil">
-                <span class="text">Profil</span>
-            </a>
-        </li>
+            <li>
+                <a href="ProfilPage.html">
+                    <img src="../static/icons/ProfilIcon.png" class="icon" alt="Profil">
+                    <span class="text">Profil</span>
+                </a>
+            </li>
 
-        <li>
-            <a href="SettingsPage.html">
-                <img src="../static/icons/SettingsIcon.png" class="icon" alt="Settings">
-                <span class="text">Paramètres</span>
-            </a>
-        </li>
-    </ul>
+            <li>
+                <a href="SettingsPage.html">
+                    <img src="../static/icons/SettingsIcon.png" class="icon" alt="Settings">
+                    <span class="text">Paramètres</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
     <header class="header" id="header">
@@ -54,16 +56,18 @@
         <div class="posts-container">
             <div class="posts-header">
 
-                <form action="" method="GET" class="filter-form">
+                <form action="/" method="GET" class="filter-form">
+                    <input type="hidden" name="type" value="category">
+
                     <details class="dropdown-filter">
                         <summary>Filtrer par catégories</summary>
 
                         <div class="dropdown-content">
                             {{range .Categories}}
-                                <label>
-                                    <input type="checkbox" name="category_id" value="{{.ID}}">
-                                    {{.Name}}
-                                </label>
+                            <label>
+                                <input type="checkbox" name="category_id" value="{{.ID}}">
+                                {{.Name}}
+                            </label>
                             {{end}}
                         </div>
                     </details>
@@ -71,11 +75,15 @@
                     <button type="submit">Appliquer</button>
                 </form>
 
+                <a href="/">Tous les posts</a>
+                <a href="/?type=created">Mes posts</a>
+                <a href="/?type=liked">Posts likés</a>
+
                 <p class="last-post-title">Dernier post :</p>
 
             </div>
 
-           {{range .Posts}}
+            {{range .Posts}}
             <article class="post-card">
 
                 <h2 class="user-link">
@@ -89,11 +97,7 @@
                 <p>{{.Content}}</p>
 
                 {{if .ImageLink}}
-                    <img
-                        src="{{.ImageLink}}"
-                        alt="Image de la publication"
-                        class="post-image"
-                    >
+                <img src="{{.ImageLink}}" alt="Image de la publication" class="post-image">
                 {{end}}
 
                 <small>Posté le {{.CreatedAt}}</small>
@@ -102,44 +106,31 @@
 
                     <details class="comments-dropdown">
                         <summary class="post-action-btn">
-                            <img
-                                src="../static/icons/commentaryIcon.png"
-                                alt="Commentaires"
-                                class="post-action-icon"
-                            >
+                            <img src="../static/icons/commentaryIcon.png" alt="Commentaires" class="post-action-icon">
                             <span>{{.CommentCount}}</span>
                         </summary>
 
                         <div class="comments-list">
                             {{range .Comments}}
-                                <div class="comment">
-                                    <a href="/profil/user?id={{.UserID}}" class="comment-user">
-                                        {{.Avatar}} {{.Pseudo}}
-                                    </a>
+                            <div class="comment">
+                                <a href="/profil/user?id={{.UserID}}" class="comment-user">
+                                    {{.Avatar}} {{.Pseudo}}
+                                </a>
 
-                                    <p>{{.Content}}</p>
-                                    <small>Posté le {{.CreatedAt}}</small>
-                                </div>
+                                <p>{{.Content}}</p>
+                                <small>Posté le {{.CreatedAt}}</small>
+                            </div>
                             {{else}}
-                                <p class="no-comments">Aucun commentaire.</p>
+                            <p class="no-comments">Aucun commentaire.</p>
                             {{end}}
                         </div>
                     </details>
 
 
                     <form action="/post/like" method="POST">
-                        <button
-                            type="submit"
-                            name="post_id"
-                            value="{{.ID}}"
-                            class="post-action-btn{{if .UserLiked}} liked{{end}}"
-                            aria-label="Aimer le post"
-                        >
-                            <img
-                                src="../static/icons/likeIcon.png"
-                                alt=""
-                                class="post-action-icon"
-                            >
+                        <button type="submit" name="post_id" value="{{.ID}}"
+                            class="post-action-btn{{if .UserLiked}} liked{{end}}" aria-label="Aimer le post">
+                            <img src="../static/icons/likeIcon.png" alt="" class="post-action-icon">
 
                             <span>{{.LikeCount}}</span>
                         </button>
@@ -147,18 +138,10 @@
 
 
                     <form action="/post/dislike" method="POST">
-                        <button
-                            type="submit"
-                            name="post_id"
-                            value="{{.ID}}"
+                        <button type="submit" name="post_id" value="{{.ID}}"
                             class="post-action-btn{{if .UserDisliked}} disliked{{end}}"
-                            aria-label="Ne pas aimer le post"
-                        >
-                            <img
-                                src="../static/icons/dislikeIcon.png"
-                                alt=""
-                                class="post-action-icon"
-                            >
+                            aria-label="Ne pas aimer le post">
+                            <img src="../static/icons/dislikeIcon.png" alt="" class="post-action-icon">
 
                             <span>{{.DislikeCount}}</span>
                         </button>
@@ -167,9 +150,9 @@
                 </div>
 
             </article>
-        {{else}}
+            {{else}}
             <p>Aucun post pour le moment.</p>
-        {{end}}
+            {{end}}
 
             <a href="../template/creationPage.html" id="new-post-btn">
                 Créer un nouveau post
@@ -183,4 +166,5 @@
 
 
 </body>
+
 </html>
