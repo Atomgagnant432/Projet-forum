@@ -27,7 +27,9 @@ func index(db *sql.DB, v *render.Render) http.HandlerFunc {
 			return
 		}
 
-		posts, err := models.GetHomePosts(db)
+		currentUserID := 1
+
+		posts, err := models.GetHomePosts(db, currentUserID)
 		if err != nil {
 			http.Error(w, "Erreur chargement posts", http.StatusInternalServerError)
 			return

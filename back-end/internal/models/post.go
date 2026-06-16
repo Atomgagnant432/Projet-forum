@@ -24,7 +24,7 @@ type Post struct {
 	Categories   []Category
 }
 
-func GetHomePosts(db *sql.DB) ([]Post, error) {
+func GetHomePosts(db *sql.DB, currentUserID int) ([]Post, error) {
 	rows, err := db.Query(`
 		SELECT
 			p.id,
@@ -35,7 +35,9 @@ func GetHomePosts(db *sql.DB) ([]Post, error) {
 			p.created_at,
 			COUNT(DISTINCT c.id),
 			COUNT(DISTINCT pl.id),
-			COUNT(DISTINCT pd.id)
+			COUNT(DISTINCT pd.id),
+			EXISTS(SELECT 1 FROM posts_like ul WHERE ul.post_id = p.id AND ul.user_id = ?),
+			EXISTS(SELECT 1 FROM posts_dislike ud WHERE ud.post_id = p.id AND ud.user_id = ?)
 		FROM posts p
 		JOIN users u ON u.id = p.user_id
 		LEFT JOIN comments c ON c.post_id = p.id
@@ -43,7 +45,7 @@ func GetHomePosts(db *sql.DB) ([]Post, error) {
 		LEFT JOIN posts_dislike pd ON pd.post_id = p.id
 		GROUP BY p.id
 		ORDER BY p.created_at DESC
-	`)
+	`, currentUserID, currentUserID)
 	if err != nil {
 		return nil, err
 	}

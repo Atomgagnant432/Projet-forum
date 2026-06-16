@@ -132,7 +132,7 @@
                             type="submit"
                             name="post_id"
                             value="{{.ID}}"
-                            class="post-action-btn"
+                            class="post-action-btn{{if .UserLiked}} liked{{end}}"
                             aria-label="Aimer le post"
                         >
                             <img
@@ -151,7 +151,7 @@
                             type="submit"
                             name="post_id"
                             value="{{.ID}}"
-                            class="post-action-btn"
+                            class="post-action-btn{{if .UserDisliked}} disliked{{end}}"
                             aria-label="Ne pas aimer le post"
                         >
                             <img

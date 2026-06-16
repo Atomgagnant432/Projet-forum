@@ -36,16 +36,9 @@ func Start() {
 	mux.HandleFunc("/register", handlers.HandlerRegister(db))
 	mux.HandleFunc("/login", handlers.HandlerConnexion(db))
 	mux.HandleFunc("/liked-posts", handlers.LikedPosts(db, v))
-
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/" {
-			http.NotFound(w, r)
-			return
-		}
-
-		v.Render(w, "HomePage.html", nil)
-
-	})
+	mux.HandleFunc("/", handlers.Index(db, v))
+	mux.HandleFunc("/post/like", handlers.HandlerLikePost(db))
+	mux.HandleFunc("/post/dislike", handlers.HandlerDislikePost(db))
 
 	//server started
 	fmt.Println("Server running at http://localhost:8080")
