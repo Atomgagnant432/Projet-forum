@@ -36,7 +36,7 @@ func Start() {
 	mux.HandleFunc("/register", handlers.HandlerRegister(db))
 	mux.HandleFunc("/login", handlers.HandlerConnexion(db))
 	mux.HandleFunc("/liked-posts", handlers.LikedPosts(db, v))
-	mux.HandleFunc("/", handlers.Index(db, v))
+	mux.HandleFunc("/", handlers.HandlerIndex(db, v))
 	mux.HandleFunc("/post/like", handlers.HandlerLikePost(db))
 	mux.HandleFunc("/post/dislike", handlers.HandlerDislikePost(db))
 
