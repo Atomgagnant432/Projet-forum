@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"net/http"
-
 	"database/sql"
+	"net/http"
+	"strconv"
 
 	"forum/back-end/internal/models"
 	"forum/back-end/internal/render"
@@ -27,9 +27,50 @@ func HandlerIndex(db *sql.DB, v *render.Render) http.HandlerFunc {
 			return
 		}
 
-		currentUserID := 1
+		currentUserID := 0
 
-		posts, err := models.GetHomePosts(db, currentUserID)
+		currentUser, err := models.GetCurrentUser(db, r)
+		if err == nil {
+			currentUserID = currentUser.ID
+		}
+
+		filterType := r.URL.Query().Get("type")
+
+		var posts []models.Post
+
+		switch filterType {
+		case "category":
+			categoryIDs := []int{}
+
+			for _, value := range r.URL.Query()["category_id"] {
+				id, err := strconv.Atoi(value)
+				if err == nil {
+					categoryIDs = append(categoryIDs, id)
+				}
+			}
+
+			posts, err = models.GetPostsByCategoryIDs(db, categoryIDs, currentUserID)
+
+		case "created":
+			if currentUserID == 0 {
+				http.Redirect(w, r, "/login", http.StatusSeeOther)
+				return
+			}
+
+			posts, err = models.GetPostsByUserID(db, currentUserID, currentUserID)
+
+		case "liked":
+			if currentUserID == 0 {
+				http.Redirect(w, r, "/login", http.StatusSeeOther)
+				return
+			}
+
+			posts, err = models.GetLikedPostsByUserID(db, currentUserID, currentUserID)
+
+		default:
+			posts, err = models.GetHomePosts(db, currentUserID)
+		}
+
 		if err != nil {
 			http.Error(w, "Erreur chargement posts", http.StatusInternalServerError)
 			return
