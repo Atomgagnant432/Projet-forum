@@ -18,7 +18,7 @@
         </div>
         <ul>
         <li>
-            <a href="HomePage.html">
+            <a href="/">
                 <img src="../static/icons/HomeIcon.png" class="icon" alt="Accueil">
                 <span class="text">Accueil</span>
             </a>
@@ -57,6 +57,10 @@
 
             <h1>Nouveau post</h1>
 
+            {{if .ErrorMessage}}
+                <p id="error-msg">{{.ErrorMessage}}</p>
+            {{end}}
+            
             <div class="form-group">
                 <label for="title">Titre :</label>
 
@@ -79,7 +83,7 @@
                         id="content"
                         placeholder="..."
                         required
-                    ></textarea>
+                    >{{.Content}}</textarea>
 
                     
                     <div id="image-preview-container" hidden>

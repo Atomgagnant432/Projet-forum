@@ -32,7 +32,6 @@ func Start() {
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	//routes
-	mux.HandleFunc("/Index", handlers.HandlerRegister(db))
 	mux.HandleFunc("/register", handlers.HandlerRegister(db))
 	mux.HandleFunc("/login", handlers.HandlerConnexion(db))
 	mux.HandleFunc("/liked-posts", handlers.LikedPosts(db, v))
@@ -40,6 +39,7 @@ func Start() {
 	mux.HandleFunc("/post/like", handlers.HandlerLikePost(db))
 	mux.HandleFunc("/post/dislike", handlers.HandlerDislikePost(db))
 	mux.HandleFunc("/logout", handlers.HandlerLogout())
+	mux.HandleFunc("/post/create", handlers.HandlerCreation(db,v))
 
 	//server started
 	fmt.Println("Server running at http://localhost:8080")

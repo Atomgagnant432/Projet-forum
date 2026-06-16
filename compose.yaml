@@ -11,8 +11,10 @@ services:
 
     volumes:
       - forum-db:/app/back-end/database/_sql
+      - forum-uploads:/app/front-end/static/uploads
 
     restart: unless-stopped
 
 volumes:
   forum-db:
+  forum-uploads:

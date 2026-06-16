@@ -14,7 +14,7 @@
         </div>
         <ul>
         <li>
-            <a href="HomePage.html">
+            <a href="/">
                 <img src="../static/icons/HomeIcon.png" class="icon" alt="Accueil">
                 <span class="text">Accueil</span>
             </a>
@@ -167,11 +167,11 @@
                 </div>
 
             </article>
-        {{else}}
-            <p>Aucun post pour le moment.</p>
-        {{end}}
+            {{else}}
+                <p>Aucun post pour le moment.</p>
+            {{end}}
 
-            <a href="../template/creationPage.html" id="new-post-btn">
+            <a href="/post/create" id="new-post-btn">
                 Créer un nouveau post
             </a>
         </div>
