@@ -21,14 +21,14 @@
         </li>
 
         <li>
-            <a href="ProfilPage.html">
+            <a href="/profile">
                 <img src="../static/icons/ProfilIcon.png" class="icon" alt="Profil">
                 <span class="text">Profil</span>
             </a>
         </li>
 
         <li>
-            <a href="SettingsPage.html">
+            <a href="/settings">
                 <img src="../static/icons/SettingsIcon.png" class="icon" alt="Settings">
                 <span class="text">Paramètres</span>
             </a>
@@ -120,10 +120,16 @@
                                     <p>{{.Content}}</p>
                                     <small>Posté le {{.CreatedAt}}</small>
                                 </div>
+                                
                             {{else}}
                                 <p class="no-comments">Aucun commentaire.</p>
                             {{end}}
                         </div>
+                        <form action="/comment/create" method="POST" class="comment-form">
+                            <input type="hidden" name="post_id" value="{{.ID}}">
+                            <input type="text" name="content" placeholder="Écrire un commentaire..." required>
+                            <button type="submit">Envoyer</button>
+                        </form>
                     </details>
 
 
