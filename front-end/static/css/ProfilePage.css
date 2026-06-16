@@ -238,11 +238,12 @@
    LOGOUT BUTTON (profile)
 ========================= */
 
+.profile-logout-section {
+    margin-top: 24px;
+}
+
 .profile-logout-form {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 1000;
+    display: inline-block;
 }
 
 .profile-logout-form .logout-btn {
