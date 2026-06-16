@@ -233,3 +233,31 @@
     gap: 10px;
     margin-top: 16px;
 }
+
+/* =========================
+   LOGOUT BUTTON (profile)
+========================= */
+
+.profile-logout-form {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+}
+
+.profile-logout-form .logout-btn {
+    background: #d14f5f;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: all 0.15s ease;
+}
+
+.profile-logout-form .logout-btn:hover {
+    background: #e45d6d;
+    transform: translateY(-1px);
+}
