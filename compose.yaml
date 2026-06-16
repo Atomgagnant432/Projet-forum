@@ -1,0 +1,18 @@
+services:
+  forum:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: projet-forum
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - forum-db:/app/back-end/database/_sql
+
+    restart: unless-stopped
+
+volumes:
+  forum-db:

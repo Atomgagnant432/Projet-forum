@@ -32,6 +32,7 @@ func Start() {
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	//routes
+	mux.HandleFunc("/Index", handlers.HandlerRegister(db))
 	mux.HandleFunc("/register", handlers.HandlerRegister(db))
 	mux.HandleFunc("/login", handlers.HandlerConnexion(db))
 	mux.HandleFunc("/liked-posts", handlers.LikedPosts(db, v))

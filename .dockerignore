@@ -1,0 +1,5 @@
+.git
+.vscode
+*.exe
+*.log
+node_modules
