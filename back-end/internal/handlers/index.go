@@ -9,7 +9,7 @@ import (
 	"forum/back-end/internal/render"
 )
 
-func index(db *sql.DB, v *render.Render) http.HandlerFunc {
+func Index(db *sql.DB, v *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
