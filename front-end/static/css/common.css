@@ -23,7 +23,7 @@
 }
 
 .header-logo img {
-    height: 32px;
+    height: 100px;
 }
 
 .header-search {
@@ -206,3 +206,4 @@ main {
 .sidebar-search input::placeholder {
     color: #a0a0b8;
 }
+
