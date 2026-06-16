@@ -1,161 +1,235 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f4f4;
-    color: #333;
-}
+/* =========================
+   CONTENT WRAPPER
+========================= */
 
 .content {
-    margin-left: 220px;
-    padding: 40px;
+    margin-left: 70px;
+    margin-top: 60px;
+    padding: 32px 40px;
+    min-height: 100vh;
+    background: #0f0f1b;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.sidebar:hover ~ .content {
+    margin-left: 220px;
+}
+
+/* =========================
+   ALERTS
+========================= */
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    border: 0.5px solid;
+}
+
+.alert-error {
+    background: rgba(255, 80, 80, 0.08);
+    border-color: rgba(255, 80, 80, 0.3);
+    color: #ff8a8a;
+}
+
+.alert-success {
+    background: rgba(80, 255, 160, 0.08);
+    border-color: rgba(80, 255, 160, 0.3);
+    color: #8affc1;
+}
+
+/* =========================
+   PROFILE CARD
+========================= */
 
 .profile-card {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    border-radius: 12px;
+    background: #1a1a2e;
+    border: 0.5px solid rgba(127, 119, 221, 0.2);
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
+/* Banner */
 .profile-banner {
-    background: #3498db;
-    height: 170px;
+    height: 160px;
+    background: linear-gradient(135deg, #2a2a4a, #1a1a2e);
     position: relative;
 }
 
+/* Avatar */
 .profile-avatar-wrap {
     position: absolute;
-    left: 40px;
-    bottom: -50px;
+    bottom: -40px;
+    left: 32px;
 }
 
 .profile-avatar {
-    width: 110px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    border: 5px solid white;
+    border: 3px solid #1a1a2e;
     object-fit: cover;
-    background: white;
+    background: #0f0f1b;
 }
 
+/* Body */
 .profile-body {
-    padding: 70px 40px 40px;
+    padding: 56px 32px 28px;
+    color: #c8c4f4;
 }
 
 .profile-username {
-    margin-bottom: 10px;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #c8c4f4;
 }
 
 .profile-description {
-    color: #666;
-    margin-bottom: 30px;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #a0a0b8;
+    line-height: 1.4;
 }
+
+/* =========================
+   META INFOS
+========================= */
 
 .profile-meta {
     display: flex;
-    gap: 40px;
-    margin-bottom: 30px;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 .meta-item {
-    display: flex;
-    flex-direction: column;
+    background: rgba(255, 255, 255, 0.03);
+    border: 0.5px solid rgba(127, 119, 221, 0.15);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 200px;
 }
 
 .meta-label {
-    font-size: 14px;
-    color: #888;
+    display: block;
+    font-size: 12px;
+    color: #a0a0b8;
+    margin-bottom: 4px;
 }
 
 .meta-value {
-    font-weight: bold;
-    margin-top: 5px;
+    font-size: 14px;
+    color: #c8c4f4;
 }
 
+/* =========================
+   ACTION BUTTONS
+========================= */
+
 .profile-actions {
+    margin-top: 24px;
     display: flex;
-    gap: 15px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    border: 0.5px solid transparent;
+    transition: all 0.2s ease;
     cursor: pointer;
-    font-size: 15px;
-    transition: 0.2s;
 }
 
 .btn-primary {
-    background: #3498db;
-    color: white;
+    background: rgba(127, 119, 221, 0.2);
+    border-color: rgba(127, 119, 221, 0.4);
+    color: #c8c4f4;
 }
 
 .btn-primary:hover {
-    background: #2980b9;
+    background: rgba(127, 119, 221, 0.3);
 }
 
 .btn-secondary {
-    background: #ddd;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(160, 160, 184, 0.2);
+    color: #a0a0b8;
 }
 
 .btn-secondary:hover {
-    background: #c7c7c7;
+    background: rgba(255, 255, 255, 0.07);
+    color: #c8c4f4;
 }
+
+/* =========================
+   MODAL
+========================= */
 
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    z-index: 999;
 }
 
 .modal {
     width: 420px;
-    background: white;
-    border-radius: 10px;
-    padding: 25px;
+    background: #1a1a2e;
+    border: 0.5px solid rgba(127, 119, 221, 0.25);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
 .modal-title {
-    margin-bottom: 20px;
+    margin: 0 0 16px;
+    color: #c8c4f4;
+    font-size: 18px;
 }
 
 .form-group {
+    margin-bottom: 14px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 18px;
 }
 
 .form-group label {
+    font-size: 13px;
+    color: #a0a0b8;
     margin-bottom: 6px;
-    font-weight: bold;
 }
 
 .form-group input,
 .form-group textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 0.5px solid rgba(127, 119, 221, 0.25);
+    border-radius: 8px;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 15px;
+    color: #c8c4f4;
+    font-size: 14px;
+    outline: none;
+    resize: none;
 }
 
 .form-group textarea {
-    resize: vertical;
-    min-height: 120px;
+    min-height: 80px;
 }
 
+/* Modal buttons */
 .modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+    margin-top: 16px;
 }
