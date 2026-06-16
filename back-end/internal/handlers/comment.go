@@ -39,7 +39,7 @@ func CreateComment(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		err = models.CreateComment(db, postID, currentUser.ID, content)
+		err = models.InsertComment(db, postID, currentUser.ID, content)
 		if err != nil {
 			http.Error(w, "Erreur création commentaire", http.StatusInternalServerError)
 			return

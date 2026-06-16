@@ -53,3 +53,23 @@ func GetCommentsByPostID(db *sql.DB, postID int) ([]Comment, error) {
 
 	return comments, rows.Err()
 }
+
+func InsertComment(db *sql.DB, postID int, userID int, content string) error {
+
+	_, err := db.Exec(`
+		INSERT INTO comments (
+			post_id,
+			user_id,
+			content,
+			created_at
+		)
+		VALUES (?, ?, ?, datetime('now'))
+	`,
+		postID,
+		userID,
+		content,
+	)
+
+
+	return err
+}
