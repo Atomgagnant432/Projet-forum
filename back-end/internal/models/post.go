@@ -87,3 +87,42 @@ func GetHomePosts(db *sql.DB, currentUserID int) ([]Post, error) {
 
 	return posts, rows.Err()
 }
+
+
+func CreatePost(db *sql.DB, userID int, title string, content string, imageLink string, categoryIDs []int,) error {
+	tx, err := db.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	var imageValue any = nil
+	if imageLink != "" {
+		imageValue = imageLink
+	}
+
+	result, err := tx.Exec(`INSERT INTO posts (user_id, image_link, title, content) VALUES (?, ?, ?, ?)`, userID, imageValue, title, content)
+	if err != nil {
+		return err
+	}
+
+	postID, err := result.LastInsertId()
+	if err != nil {
+		return err
+	}
+
+	stmt, err := tx.Prepare(`INSERT INTO post_categories (post_id, category_id) VALUES (?, ?)`)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	for _, categoryID := range categoryIDs {
+		_, err := stmt.Exec(postID, categoryID)
+		if err != nil {
+			return err
+		}
+	}
+
+	return tx.Commit()
+}
