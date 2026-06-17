@@ -10,7 +10,6 @@ import (
 
 func LikedPosts(db *sql.DB, v *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// temporaire : tant que les sessions ne sont pas finies
 		userID := "1"
 
 		posts, err := models.GetLikedPostsByUser(db, userID)
