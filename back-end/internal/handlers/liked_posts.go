@@ -10,7 +10,7 @@ import (
 
 func LikedPosts(db *sql.DB, v *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		userID := "1"
+		userID := models.GetCurrentUser(db, r)
 
 		posts, err := models.GetLikedPostsByUser(db, userID)
 		if err != nil {
